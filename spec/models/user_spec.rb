@@ -1,15 +1,12 @@
 require 'pry'
 describe 'User' do
   before do
-    @user = User.create(:username => "test 123", :email => "test123@aol.com", :password => "test")
+    @user = User.create(:username => "test 123", :password => "test")
+    @char1 = Character.create(:name => "Flash", :description => "Fast as heck", :user_id => 1)
+    @char2 = Character.create(:name => "Light Yagami", :description => "Twisted sense of justice", :user_id => 1)
   end
-  it 'can slug the username' do
-    expect(@user.slug).to eq("test-123")
-  end
-
-  it 'can find a user based on the slug' do
-    slug = @user.slug
-    expect(User.find_by_slug(slug).username).to eq("test 123")
+  it "has many characters" do
+    expect(@user.characters.size).to eq(2)
   end
 
   it 'has a secure password' do
