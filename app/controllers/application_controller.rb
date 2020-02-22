@@ -10,8 +10,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    "Welcome to NOTHING"
+    erb :layout
   end
-
 
 end
