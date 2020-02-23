@@ -53,4 +53,16 @@ class UsersController < ApplicationController
     session[:user_id] = ""
     redirect '/login'
   end
+
+  post '/search' do
+    user = User.find_by_username(params[:username])
+
+  end
+
+  get '/:username' do   #this route will show a users list
+    user = User.find_by_username(params[:username])
+    if !user
+      redirect '/'
+    end
+  end
 end
