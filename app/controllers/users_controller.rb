@@ -56,13 +56,22 @@ class UsersController < ApplicationController
 
   post '/search' do
     user = User.find_by_username(params[:username])
-
+    if user
+      redirect "/#{user.username}"
+    else
+      redirect '/home'
+    end
   end
 
-  get '/:username' do   #this route will show a users list
-    user = User.find_by_username(params[:username])
-    if !user
-      redirect '/'
+  get '/:username' do   #this route will show a user's list
+    if !Helper.logged_in?(session)
+      redirect '/login'
     end
+    @user = User.find_by_username(params[:username])
+    if !@user
+      redirect '/home'
+    end
+    @characters = @user.characters.sort_by &:list_rank  #check to see if this sorts characters by rank
+    erb :"characters/show"
   end
 end
