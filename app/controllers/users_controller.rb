@@ -40,12 +40,17 @@ class UsersController < ApplicationController
       user = User.find_by(username: params[:username])
       if !!user && user.validate(params[:password])
         session[:user_id] = user.id
-        redirect '/index'
+        redirect '/home'
       else
         redirect '/login'
       end
     else
       redirect '/login'
     end
+  end
+
+  get '/logout' do
+    session[:user_id] = ""
+    redirect '/login'
   end
 end
