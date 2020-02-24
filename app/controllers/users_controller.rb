@@ -67,6 +67,7 @@ class UsersController < ApplicationController
     if !Helper.logged_in?(session)
       redirect '/login'
     end
+    @current_user = User.find_by_id(session[:user_id])
     @user = User.find_by_username(params[:username])
     if !@user
       redirect '/home'

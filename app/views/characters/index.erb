@@ -5,3 +5,9 @@
     <li>List Rank: <%=character.list_rank%>. <a href="/characters/<%=character.id%>"><%=character.name%></a></li>
   <%end%>
 </ul>
+
+<%if @current_user.id == @user.id%>
+  <form class="add_character" action="/characters/new" method="get">
+    <input type="submit" name="add_btn" value="Add a Character">
+  </form>
+<%end%>
