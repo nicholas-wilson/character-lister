@@ -12,4 +12,8 @@
   <form class="edit" action="/characters/<%=@character.id%>/edit" method="get">
     <input type="submit" value="Edit Character">
   </form>
+  <br>
 <%end%>
+<form class="back" action="/<%=@owner.username%>" method="get">
+  <input type="submit" value="Back to List">
+</form>
