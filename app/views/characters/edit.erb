@@ -1,0 +1,18 @@
+<h2>Editing <%=@character.name%>'s information</h2>
+<h4>NOTE* If you don't want to change something leave it as is in the text box and click Update once you are all done.</h4>
+<form class="edit_char" action="/characters/<%=@character.id%>" method="post">
+  <input type="hidden" id="hidden" name="_method" value="patch">
+  <label for="char_name">Character's name :</label>
+  <input type="text" id="char_name" name="character[name]" value="<%=@character.name%>">
+  <br>
+  <br>
+  <label for="char_description">Character's description :</label>
+  <input type="text" id="char_description" name="character[description]" value="<%=@character.description%>"></p>
+
+  <p><label for="liked">Why you like this character :</label>
+  <input type="text" name="character[liked_because]" value="<%=@character.liked_because%>"></p>
+
+  <p><label for="list_rank">Please enter a rank number :</label>
+  <input type="text" id="list_rank" name="character[list_rank]" value="<%=@character.list_rank%>"></p>
+  <p><input type="submit" value="Update"></p>
+</form>

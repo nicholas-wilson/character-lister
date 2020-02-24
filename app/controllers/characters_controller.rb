@@ -39,4 +39,10 @@ class CharactersController < ApplicationController
     user.characters << new_guy
     redirect "/#{user.username}"
   end
+
+  patch '/characters/:id' do
+    character = Character.find_by_id(params[:id])
+    character.update(params[:character])
+    redirect "/characters/#{character.id}"
+  end
 end
