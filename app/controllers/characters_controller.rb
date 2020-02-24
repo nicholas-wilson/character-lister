@@ -11,18 +11,23 @@ class CharactersController < ApplicationController
       redirect '/'
     end
     @character = Character.find_by_id(params[:id])
-    @owner = @character.user  #don't think it knows about it's user actually....
+    @owner = @character.user
     @current_user = Helper.current_user(session)
     erb :"characters/show"
   end
 
   get '/characters/:id/edit' do
-    @character = Character.find_by_id(params[:id])
-    @list_owner = @character.           #same problem here.....
     if !Helper.logged_in?(session)
       redirect '/'
     end
-
+    @character = Character.find_by_id(params[:id])
+    @list_owner = @character.user
+    # without a proper character it will load a page saying no such character has been created yet
+    # or may just redirect to /home
+    if !@character
+      redirect '/home'
+    end
+    erb :"characters/edit"
   end
 
   post '/characters' do
