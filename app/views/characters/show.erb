@@ -1,1 +1,15 @@
-<h1><%=@user.username%>'s Favorite Characters</h1>
+<h2><%=@character.name%></h2>
+
+<h3>Description for <%=@character.name%> :</h3>
+<p><%=@character.description%></p>
+
+<h3>Why <%=@owner.username%> likes them :</h3>
+<p><%=@character.liked_because%></p>
+
+<h3><%=@character.name%> ranks number <%=@character.list_rank%> on <%=@owner.username%>'s list of favorites!</h3>
+
+<%if @current_user == @owner%>
+  <form class="edit" action="/characters/<%=@character.id%>/edit" method="get">
+
+  </form>
+<%end%>

@@ -1,0 +1,7 @@
+<h1><%=@user.username%>'s Favorite Characters</h1>
+
+<ul>
+  <%@characters.each do |character|%>
+    <li>List Rank: <%=character.list_rank%>. <a href="/characters/<%=character.id%>"><%=character.name%></a></li>
+  <%end%>
+</ul>
