@@ -72,7 +72,7 @@ class UsersController < ApplicationController
     if !@user
       redirect '/home'
     end
-    @characters = @user.characters.sort_by &:list_rank  #check to see if this sorts characters by rank
+    @characters = Character.ordered_list(@user)  #check to see if this sorts characters by rank
     erb :"characters/index"
   end
 end

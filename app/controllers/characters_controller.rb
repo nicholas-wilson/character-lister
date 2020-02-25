@@ -31,18 +31,20 @@ class CharactersController < ApplicationController
   end
 
   post '/characters' do
-    if !params[:name] || params[:name] == " "
+    if !params[:character][:name] || params[:character][:name] == " "
       redirect '/characters/new'
     end
     user = Helper.current_user(session)
-    new_guy = Character.create(params)
+    new_guy = Character.create(params[:character])
     user.characters << new_guy
+    new_guy.update_rank(params[:rank][:list_rank])
     redirect "/#{user.username}"
   end
 
   patch '/characters/:id' do
     character = Character.find_by_id(params[:id])
     character.update(params[:character])
+    character.update_rank(params[:rank][:list_rank])
     redirect "/characters/#{character.id}"
   end
 end

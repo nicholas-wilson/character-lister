@@ -2,16 +2,16 @@
 
 <form class="new_character" action="/characters" method="post">
   <label for="char_name">Please enter a name for the character :</label>
-  <input type="text" id="char_name" name="name" placeholder="Example: The Rock">
+  <input type="text" id="char_name" name="character[name]" placeholder="Example: The Rock">
   <br>
   <br>
   <label for="char_description">Optionally add a description of the Character :</label>
-  <input type="text" id="char_description" name="description"></p>
+  <input type="text" id="char_description" name="character[description]"></p>
 
   <p><label for="liked">Also optional is a reason you like this character :</label>
-  <input type="text" name="liked_because"></p>
+  <input type="text" name="character[liked_because]"></p>
 
   <p><label for="list_rank">Please enter a rank number :</label>
-  <input type="text" id="list_rank" name="list_rank" placeholder="10"></p>
+  <input type="text" id="list_rank" name="rank[list_rank]" placeholder="10"></p>
   <p><input type="submit" value="Create"></p>
 </form>

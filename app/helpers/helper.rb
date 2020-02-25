@@ -14,4 +14,5 @@ class Helper
       User.find(session_hash[:user_id])
     end
   end
+
 end
