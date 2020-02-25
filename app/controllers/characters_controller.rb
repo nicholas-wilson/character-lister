@@ -36,15 +36,18 @@ class CharactersController < ApplicationController
     end
     user = Helper.current_user(session)
     new_guy = Character.create(params[:character])
+    new_guy.list_rank = params[:rank][:list_rank]
     user.characters << new_guy
-    new_guy.update_rank(params[:rank][:list_rank])
+    # Character.update_list(user, new_guy)        called on in list_rank=()
     redirect "/#{user.username}"
   end
 
   patch '/characters/:id' do
     character = Character.find_by_id(params[:id])
+    user = User.find_by_id(session[:user_id])
     character.update(params[:character])
-    character.update_rank(params[:rank][:list_rank])
+    character.list_rank = params[:rank][:list_rank]
+    # Character.update_list(user, character)
     redirect "/characters/#{character.id}"
   end
 end

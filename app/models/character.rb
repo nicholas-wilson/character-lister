@@ -1,30 +1,45 @@
 class Character < ActiveRecord::Base
   belongs_to :user
 
-  def update_rank(number)
-    if !self.list_rank
-      self.list_rank = 0
+  def list_rank=(number)
+    previous_pos = 0
+    if self.list_rank
+      previous_pos = self.list_rank
     end
-    characters = Character.ordered_list(self.user)
-    if characters.size == 0
-      self.list_rank = 1
+    super
+    last_character = Character.ordered_list(self.user).last
+    if self.user.characters.size == 0
+      @list_rank = 1
       self.save
-    elsif number.to_i > characters.last.list_rank || number.to_i < 1
-      self.list_rank = characters.last.list_rank + 1
+    elsif number.to_i > last_character.list_rank || number.to_i < 1
+      @list_rank = last_character.list_rank + 1
       self.save
     else
-      original_rank = self.list_rank
-      self.list_rank = number.to_i
+      @list_rank = number.to_i
       self.save
-      characters.each do |character|
-        if original_rank == 1 && character.list_rank < original_rank && character.id != self.id
-          character.list_rank = character.list_rank - 1
+      Character.update_list(self.user, self, previous_pos)
+    end
+  end
+
+  def self.update_list(user, character_to_update, previous_pos=0)
+    characters = Character.ordered_list(user)
+    if previous_pos == 0 || previous_pos > character_to_update.list_rank    # if the character had no rank before or goes up
+      characters.each_with_index do |character, index|
+        if index >= character_to_update.list_rank - 1 && character.id != character_to_update.id && character.list_rank < previous_pos
+          character.list_rank += 1
           character.save
-        elsif character.list_rank <= self.list_rank && character.id != self.id
-          character.list_rank = character.list_rank + 1
+        end
+      end
+    elsif previous_pos < character_to_update.list_rank                      # if the character moved down in ranking
+      characters.each_with_index do |character, index|
+        if character_to_update.list_rank == character.list_rank && character.id != character_to_update.id && character.list_rank != 1    # the character at same rank as what the changing character is now also moves up a rank
+          character.list_rank -= 1
           character.save
-        elsif character.list_rank < original_rank && character.id != self.id
-          character.list_rank = character.list_rank - 1
+        elsif index >= previous_pos - 1 && index < character_to_update.list_rank - 1                         # all characters get ranked up by 1 that were previously lower ranked than the character being updated except for those still ranked lower
+          character.list_rank -= 1
+          character.save
+        elsif character_to_update.list_rank == characters.size + 1 && character.id == character_to_update.id # when the updated character is moved to the bottom of the list it will still be moved up 1 for proper listing
+          character.list_rank -= 1
           character.save
         end
       end
