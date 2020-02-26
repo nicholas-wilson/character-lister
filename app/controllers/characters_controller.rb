@@ -52,4 +52,15 @@ class CharactersController < ApplicationController
     Character.update_list(user, character, previous_rank)
     redirect "/characters/#{character.id}"
   end
+
+  delete '/characters/:id' do
+    character = Character.find_by_id(params[:id])
+    previous_rank = character.list_rank
+    user = User.find_by_id(session[:user_id])
+    character.list_rank = user.characters.size
+    character.save
+    Character.update_list(user, character, previous_rank)
+    character.delete
+    redirect "/#{user.username}"
+  end
 end
