@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   post '/login' do
     if params[:username] != "" && params[:password] != ""
       user = User.find_by(username: params[:username])
-      if !!user && user.validate(params[:password])
+      if !!user && user.authenticate(params[:password])
         session[:user_id] = user.id
         redirect '/home'
       else
