@@ -31,7 +31,7 @@ class CharactersController < ApplicationController
   end
 
   post '/characters' do
-    if !params[:character][:name] || params[:character][:name] == " "
+    if !params[:character][:name] || params[:character][:name] == ""
       redirect '/characters/new'
     end
     user = Helper.current_user(session)
