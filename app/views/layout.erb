@@ -11,6 +11,9 @@
     <br>
     <br>
     <% if Helper.logged_in?(session) %>
+    <form class="home" action="/home" method="get">
+      <input type="submit" name="home_btn" value="Back to home page">
+    </form>
       <form class="logout" action="/logout" method="get">
         <input type="submit" name="logout_btn" value="Logout">
       </form>
