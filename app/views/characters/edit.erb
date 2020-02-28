@@ -15,9 +15,9 @@
   <p><label for="list_rank">Please enter a rank number :</label>
   <input type="text" id="list_rank" name="rank[list_rank]" value="<%=@character.list_rank%>"></p>
   <p><input type="submit" value="Update"></p>
+</form>
 
-  <form class="" action="/characters/<%=@character.id%>" method="post">
-    <input type="hidden" id="hidden" name="_method" value="delete">
-    <input type="submit" value="Delete Character">
-  </form>
+<form class="" action="/characters/<%=@character.id%>" method="post">
+  <input type="hidden" id="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Character">
 </form>

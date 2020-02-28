@@ -43,6 +43,9 @@ class CharactersController < ApplicationController
   end
 
   patch '/characters/:id' do
+    if !params[:character][:name] || params[:character][:name] == ""
+      redirect "/characters/#{params[:id]}"
+    end
     character = Character.find_by_id(params[:id])
     previous_rank = character.list_rank
     user = User.find_by_id(session[:user_id])
