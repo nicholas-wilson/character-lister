@@ -17,10 +17,11 @@ class CharactersController < ApplicationController
   end
 
   get '/characters/:id/edit' do
-    if !Helper.logged_in?(session)
+    @character = Character.find_by_id(params[:id])
+    if Helper.current_user(session) != @character.user #abstract to authorize user method
       redirect '/'
     end
-    @character = Character.find_by_id(params[:id])
+    
     @list_owner = @character.user
     # without a proper character it will load a page saying no such character has been created yet
     # or may just redirect to /home

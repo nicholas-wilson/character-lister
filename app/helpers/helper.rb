@@ -8,6 +8,7 @@ class Helper
   end
 
   def self.current_user(session_hash)
+    # @current_user ||= User.find(session_hash[:user_id])
     if session_hash[:user_id] == ""
       nil
     else
