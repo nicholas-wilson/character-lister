@@ -7,15 +7,17 @@ h1 {
 }
 
 p {
-  text-align: center;
   font-size: 22px;
 }
 
-h3 {
+body {
   text-align: center;
 }
 
-.home {
-  text-align: center;
-  color: purple;
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 10px;
 }
