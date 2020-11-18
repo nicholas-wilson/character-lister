@@ -2,7 +2,7 @@
 
 <ul>
   <%@characters.each do |character|%>
-    <li>List Rank: <%=character.list_rank%>. <a href="/characters/<%=character.id%>"><%=character.name%></a></li>
+    <li><%=character.list_rank%>. <a href="/characters/<%=character.id%>"><%=character.name%></a></li>
   <%end%>
 </ul>
 
